@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Agent Booking | CKMHTO.AI</title>
+
+    <meta name="description" content="Book custom AI agents and automate your business.">
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Razorpay Checkout -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Main JavaScript -->
+    <script src="/static/script.js" defer></script>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">
+                CKMHTO<span>.AI</span>
+            </a>
+
+            <div class="nav-right">
+                <span class="secure-label">🔒 Secure Booking</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-section">
+        <div class="container main-grid">
+
+            <section class="hero-content">
+
+                <span class="eyebrow">AI AUTOMATION SERVICES</span>
+
+                <h1>
+                    Build Your Business
+                    <span>With AI Agents.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Ready to automate your business?
+                    Tell us about your requirements.
+                    We'll help you build a custom AI agent
+                    that saves time and improves productivity.
+                </p>
+
+                <div class="features">
+                    <div class="feature"><span>✓</span> AI Chatbots & Customer Support</div>
+                    <div class="feature"><span>✓</span> WhatsApp AI Automation</div>
+                    <div class="feature"><span>✓</span> Voice AI Agents</div>
+                    <div class="feature"><span>✓</span> Custom Business Automation</div>
+                </div>
+
+                <div class="price-card">
+                    <p>Initial Booking Fee</p>
+                    <h2>₹499</h2>
+                    <small>One-time consultation and booking fee.</small>
+                </div>
+
+            </section>
+
+            <section class="form-card">
+
+                <div class="form-heading">
+                    <span class="form-tag">GET STARTED</span>
+                    <h2>Book Your AI Agent</h2>
+                    <p>Fill in your details to get started.</p>
+                </div>
+
+                <form id="bookingForm">
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required
+                            minlength="2" maxlength="100">
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Mobile number" required
+                                minlength="10" maxlength="15">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business">Business / Company Name *</label>
+                        <input type="text" id="business" name="business" placeholder="Enter business name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Which AI Agent Do You Need? *</label>
+
+                        <select id="service" name="service" required>
+                            <option value="">Select your service</option>
+                            <option value="AI Chatbot">AI Chatbot / Customer Support</option>
+                            <option value="WhatsApp AI Agent">WhatsApp AI Agent</option>
+                            <option value="Voice AI Agent">Voice Calling AI Agent</option>
+                            <option value="Lead Generation Agent">Lead Generation Agent</option>
+                            <option value="Business Automation">Business Workflow Automation</option>
+                            <option value="Custom AI Agent">Custom AI Agent</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="requirements">Project Requirements *</label>
+                        <textarea id="requirements" name="requirements" rows="4"
+                            placeholder="Describe what you want to automate..." required minlength="10"
+                            maxlength="2000"></textarea>
+                    </div>
+
+                    <div class="payment-summary">
+                        <span>Booking Fee</span>
+                        <strong>₹499</strong>
+                    </div>
+
+                    <button type="submit" id="payButton" class="pay-button">
+                        Continue to Payment →
+                    </button>
+
+                    <p class="form-note">
+                        Secure payment powered by Razorpay.
+                    </p>
+
+                    <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+                </form>
+
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 CKMHTO.AI. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

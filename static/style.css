@@ -1,0 +1,846 @@
+/* =====================================
+   CKMHTO.AI - AI AGENT BOOKING
+   Main Stylesheet
+===================================== */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+
+/* CSS Variables */
+:root {
+    --primary: #315efb;
+    --primary-dark: #244be0;
+
+    --dark: #101828;
+    --text: #344054;
+    --muted: #667085;
+
+    --background: #f7f8fc;
+    --white: #ffffff;
+
+    --border: #e4e7ec;
+
+    --success: #12b76a;
+    --danger: #f04438;
+
+    --shadow: 0 15px 45px rgba(16, 24, 40, 0.07);
+}
+
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--background);
+    color: var(--dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1150px;
+    margin: auto;
+    padding: 0 24px;
+}
+
+
+/* =====================================
+   NAVBAR
+===================================== */
+
+.navbar {
+    width: 100%;
+    height: 76px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+}
+
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark);
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+
+.logo span {
+    color: var(--primary);
+}
+
+
+.secure-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+
+/* =====================================
+   MAIN SECTION
+===================================== */
+
+.main-section {
+    flex: 1;
+    padding: 65px 0;
+}
+
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 65px;
+    align-items: center;
+}
+
+
+/* =====================================
+   HERO CONTENT
+===================================== */
+
+.eyebrow {
+    display: inline-block;
+
+    color: var(--primary);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 20px;
+}
+
+
+.hero-content h1 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: clamp(38px, 5vw, 56px);
+
+    line-height: 1.12;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 22px;
+}
+
+
+.hero-content h1 span {
+    display: block;
+    color: var(--primary);
+}
+
+
+.hero-description {
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    max-width: 480px;
+
+    margin-bottom: 30px;
+}
+
+
+/* Features */
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+
+    margin-bottom: 35px;
+}
+
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: var(--text);
+}
+
+
+.feature span {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e9efff;
+
+    color: var(--primary);
+
+    border-radius: 50%;
+
+    font-weight: 700;
+}
+
+
+/* Price Card */
+
+.price-card {
+    background: #eef2ff;
+
+    border: 1px solid #dce5ff;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    max-width: 360px;
+}
+
+
+.price-card p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-bottom: 7px;
+}
+
+
+.price-card h2 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 34px;
+
+    margin-bottom: 5px;
+}
+
+
+.price-card small {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =====================================
+   FORM CARD
+===================================== */
+
+.form-card {
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 32px;
+
+    box-shadow: var(--shadow);
+}
+
+
+.form-heading {
+    margin-bottom: 27px;
+}
+
+
+.form-tag {
+    color: var(--primary);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.form-heading h2 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 25px;
+
+    margin: 10px 0;
+}
+
+
+.form-heading p {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* Form Groups */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+
+.form-group label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: var(--text);
+
+    margin-bottom: 8px;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 9px;
+
+    background: var(--white);
+
+    color: var(--dark);
+
+    font-family: 'DM Sans', sans-serif;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #98a2b3;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(49, 94, 251, 0.10);
+}
+
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 105px;
+    line-height: 1.6;
+}
+
+
+.form-group select {
+    cursor: pointer;
+}
+
+
+/* Two Column Fields */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+}
+
+
+/* =====================================
+   PAYMENT SUMMARY
+===================================== */
+
+.payment-summary {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 18px 0;
+
+    margin-top: 5px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.payment-summary span {
+    font-size: 14px;
+
+    color: var(--muted);
+}
+
+
+.payment-summary strong {
+
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 22px;
+
+    color: var(--dark);
+}
+
+
+/* =====================================
+   PAYMENT BUTTON
+===================================== */
+
+.pay-button {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+
+    color: var(--white);
+
+    font-family: 'DM Sans', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+
+    box-shadow: 0 7px 18px rgba(49, 94, 251, 0.20);
+}
+
+
+.pay-button:hover {
+
+    background: var(--primary-dark);
+
+    transform: translateY(-2px);
+
+}
+
+
+.pay-button:active {
+    transform: scale(0.99);
+}
+
+
+.pay-button:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* Form Note */
+
+.form-note {
+
+    text-align: center;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    margin-top: 13px;
+}
+
+
+/* Status Message */
+
+.status-message {
+
+    font-size: 13px;
+
+    margin-top: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.footer {
+
+    background: var(--white);
+
+    border-top: 1px solid var(--border);
+
+    text-align: center;
+
+    padding: 22px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 900px) {
+
+    .main-grid {
+        gap: 35px;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+    }
+
+    .form-card {
+        padding: 25px;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .main-section {
+        padding: 40px 0;
+    }
+
+    .main-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .features {
+        align-items: flex-start;
+        max-width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .price-card {
+        margin: auto;
+        text-align: left;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .container {
+        padding: 0 17px;
+    }
+
+    .navbar {
+        height: 65px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .secure-label {
+        font-size: 11px;
+    }
+
+    .hero-content h1 {
+        font-size: 37px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .form-card {
+        padding: 21px 17px;
+        border-radius: 15px;
+    }
+
+    .form-heading h2 {
+        font-size: 22px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+}
+
+
+
+
+/* =========================================
+   PROFESSIONAL PAYMENT SUCCESS SCREEN
+========================================= */
+
+.success-screen {
+    width: 100%;
+    padding: 15px 5px;
+    text-align: center;
+}
+
+.success-icon-wrapper {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #e9f9f0;
+    display: grid;
+    place-items: center;
+}
+
+.success-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #16a36a;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.success-label {
+    color: #16a36a;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.success-screen h2 {
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #172033;
+}
+
+.success-description {
+    max-width: 390px;
+    margin: 10px auto 24px;
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.success-amount {
+    padding: 22px;
+    background: #f1f4ff;
+    border: 1px solid #dfe6ff;
+    border-radius: 13px;
+    margin-bottom: 18px;
+}
+
+.success-amount span,
+.success-amount small {
+    display: block;
+    color: #667085;
+    font-size: 12px;
+}
+
+.success-amount strong {
+    display: block;
+    margin: 7px 0;
+    font-size: 34px;
+    color: #315efb;
+}
+
+.receipt-card {
+    padding: 19px;
+    border: 1px solid #e8ecf3;
+    border-radius: 12px;
+    text-align: left;
+    background: #ffffff;
+}
+
+.receipt-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e8ecf3;
+    margin-bottom: 5px;
+}
+
+.receipt-heading strong {
+    font-size: 14px;
+}
+
+.verified-badge {
+    background: #e9f8f0;
+    color: #16a36a;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 11px 0;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.receipt-row:last-child {
+    border-bottom: none;
+}
+
+.receipt-row span {
+    color: #667085;
+    font-size: 12px;
+}
+
+.receipt-row strong {
+    font-size: 12px;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.payment-reference {
+    max-width: 190px;
+}
+
+.paid-status {
+    color: #16a36a;
+}
+
+.next-steps {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 15px;
+    text-align: left;
+    background: #f8f9fc;
+    border-radius: 10px;
+}
+
+.next-steps-icon {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: #eaf0ff;
+    color: #315efb;
+    font-size: 17px;
+}
+
+.next-steps strong {
+    font-size: 13px;
+}
+
+.next-steps p {
+    margin-top: 4px;
+    color: #667085;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.success-footer {
+    margin: 20px 0 12px;
+    font-size: 12px;
+    color: #667085;
+}
+
+.success-home-button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 9px;
+    background: #315efb;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.success-home-button:hover {
+    background: #244bd0;
+}
+
+@media (max-width: 480px) {
+
+    .success-screen h2 {
+        font-size: 23px;
+    }
+
+    .receipt-card {
+        padding: 14px;
+    }
+
+    .receipt-row {
+        gap: 8px;
+    }
+
+    .payment-reference {
+        max-width: 150px;
+    }
+
+}

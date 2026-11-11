@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | CKMHTO.AI</title>
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="stylesheet" href="/admin-assets/style.css">
+    <script src="/admin-assets/script.js" defer></script>
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <h2>CKMHTO<span>.AI</span></h2>
+                <p>ADMIN PANEL</p>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="#overview" class="nav-link active">
+                    <span>▦</span> Overview
+                </a>
+
+                <a href="#bookings" class="nav-link">
+                    <span>▤</span> All Bookings
+                </a>
+
+                <a href="#payments" class="nav-link">
+                    <span>₹</span> Payments
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="admin-profile">
+                    <div class="profile-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>CKMHTO.AI</small>
+                    </div>
+                </div>
+
+                <p class="sidebar-footer">© 2026 CKMHTO.AI</p>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- TOPBAR -->
+            <header class="topbar">
+
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Here's your business overview.</p>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <span class="system-status">
+                        <span class="status-dot"></span>
+                        System Online
+                    </span>
+
+                    <button id="refreshButton" class="refresh-button">
+                        ↻ Refresh
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- DASHBOARD CONTENT -->
+            <div class="content-wrapper">
+
+                <!-- OVERVIEW -->
+                <section id="overview">
+
+                    <div class="section-heading">
+                        <div>
+                            <h2>Business Overview</h2>
+                            <p>Track your bookings and revenue.</p>
+                        </div>
+                    </div>
+
+
+                    <!-- STATISTICS -->
+                    <div class="stats-grid">
+
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <span>Total Bookings</span>
+                                <span class="stat-icon blue">▤</span>
+                            </div>
+
+                            <h3 id="totalBookings">—</h3>
+                            <small>All customer bookings</small>
+                        </div>
+
+
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <span>Total Revenue</span>
+                                <span class="stat-icon green">₹</span>
+                            </div>
+
+                            <h3 id="totalRevenue">₹0</h3>
+                            <small>Successfully captured payments</small>
+                        </div>
+
+
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <span>Successful Payments</span>
+                                <span class="stat-icon green">✓</span>
+                            </div>
+
+                            <h3 id="successfulPayments">—</h3>
+                            <small>Verified transactions</small>
+                        </div>
+
+
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <span>Pending Payments</span>
+                                <span class="stat-icon orange">◷</span>
+                            </div>
+
+                            <h3 id="pendingPayments">—</h3>
+                            <small>Awaiting confirmation</small>
+                        </div>
+
+
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <span>Failed Payments</span>
+                                <span class="stat-icon red">×</span>
+                            </div>
+
+                            <h3 id="failedPayments">—</h3>
+                            <small>Unsuccessful transactions</small>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- BOOKINGS -->
+                <section id="bookings" class="data-section">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <h2>Customer Bookings</h2>
+                            <p>Manage all your AI agent service requests.</p>
+                        </div>
+
+                        <button id="exportButton" class="export-button">
+                            ↓ Export CSV
+                        </button>
+
+                    </div>
+
+
+                    <!-- FILTERS -->
+                    <div class="filter-bar">
+
+                        <input type="search" id="searchInput" placeholder="Search name, email, phone or booking ID...">
+
+                        <select id="statusFilter">
+                            <option value="">All Payments</option>
+                            <option value="paid">Paid</option>
+                            <option value="pending">Pending</option>
+                            <option value="failed">Failed</option>
+                        </select>
+
+                    </div>
+
+
+                    <!-- BOOKINGS TABLE -->
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Customer</th>
+                                    <th>Business</th>
+                                    <th>Service</th>
+                                    <th>Amount</th>
+                                    <th>Payment Status</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="bookingsTableBody">
+
+                                <tr>
+                                    <td colspan="8" class="empty-state">
+                                        Loading bookings...
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="table-footer">
+                        <span id="bookingCount">Loading records...</span>
+                    </div>
+
+                </section>
+
+
+                <!-- PAYMENT INFORMATION -->
+                <section id="payments" class="data-section">
+
+                    <div class="section-heading">
+                        <div>
+                            <h2>Payment Management</h2>
+                            <p>View transaction and payment information.</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-info-card">
+
+                        <div class="payment-info-icon">₹</div>
+
+                        <div>
+                            <h3>Razorpay Integration</h3>
+                            <p>
+                                Verified payments, payment IDs, transaction
+                                methods and payment details are available
+                                in the booking records.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- FOOTER -->
+                <footer class="dashboard-footer">
+                    <p>CKMHTO.AI Admin Dashboard · 2026</p>
+                    <p>Secure Business Management</p>
+                </footer>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- BOOKING DETAILS MODAL -->
+    <div id="bookingModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Booking Details</h2>
+                    <p>Complete customer and payment information.</p>
+                </div>
+
+                <button id="closeModal" class="close-button">
+                    ×
+                </button>
+
+            </div>
+
+            <div id="bookingDetails" class="booking-details">
+
+                Loading details...
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATUS MESSAGE -->
+    <div id="toastMessage" class="toast hidden"></div>
+
+</body>
+
+</html>
