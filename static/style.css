@@ -1,8 +1,3 @@
-/* =========================================
-   CKMHTO.AI - PREMIUM WEBSITE STYLES
-   Theme: Black + Electric Blue
-========================================= */
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 /* VARIABLES */
@@ -68,9 +63,6 @@ select {
     padding: 100px 0;
 }
 
-/* =========================================
-   NAVBAR
-========================================= */
 
 .navbar {
     position: sticky;
@@ -147,9 +139,6 @@ select {
     transform: translateY(-2px);
 }
 
-/* =========================================
-   HERO SECTION
-========================================= */
 
 .hero-section {
     position: relative;
@@ -361,10 +350,6 @@ select {
     font-size: 11px;
 }
 
-/* =========================================
-   TRUST STRIP
-========================================= */
-
 .trust-strip {
     padding: 22px 0;
     background: #0d1628;
@@ -387,9 +372,6 @@ select {
     letter-spacing: 1.3px;
 }
 
-/* =========================================
-   SECTION HEADINGS
-========================================= */
 
 .section-heading {
     max-width: 720px;
@@ -428,9 +410,6 @@ select {
     line-height: 1.8;
 }
 
-/* =========================================
-   SERVICES SECTION
-========================================= */
 
 .services-section {
     background: #0a1120;
@@ -536,9 +515,6 @@ select {
     text-decoration: underline;
 }
 
-/* =========================================
-   ABOUT / BENEFITS
-========================================= */
 
 .about-section {
     background:
@@ -589,9 +565,6 @@ select {
     line-height: 1.8;
 }
 
-/* =========================================
-   HOW IT WORKS
-========================================= */
 
 .process-section {
     background: #0c1425;
@@ -631,9 +604,6 @@ select {
     line-height: 1.8;
 }
 
-/* =========================================
-   BOOKING SECTION
-========================================= */
 
 .booking-section {
     background:
@@ -708,9 +678,6 @@ select {
     line-height: 1.7;
 }
 
-/* =========================================
-   FORM CARD
-========================================= */
 
 .form-card {
     padding: 34px;
@@ -872,9 +839,6 @@ select {
     margin-top: 14px;
 }
 
-/* =========================================
-   FOOTER
-========================================= */
 
 .footer {
     background: #060b15;
@@ -937,11 +901,6 @@ select {
     color: #75839a;
     font-size: 10px;
 }
-
-/* =========================================
-   PAYMENT SUCCESS SCREEN
-   Existing JavaScript compatibility
-========================================= */
 
 .success-screen {
     width: 100%;
@@ -1136,9 +1095,6 @@ select {
     background: #244bd0;
 }
 
-/* =========================================
-   RESPONSIVE DESIGN
-========================================= */
 
 @media (max-width: 1000px) {
 
@@ -1399,7 +1355,6 @@ textarea:focus-visible {
     outline-offset: 3px;
 }
 
-/* REDUCED MOTION */
 @media (prefers-reduced-motion: reduce) {
 
     *,
@@ -1414,7 +1369,6 @@ textarea:focus-visible {
 
 
 
-/* RECEIPT BUTTONS */
 
 .receipt-actions {
     display: grid;
@@ -1449,7 +1403,6 @@ textarea:focus-visible {
     cursor: wait;
 }
 
-/* PDF RECEIPT */
 
 .receipt-export-wrapper {
     position: absolute;
@@ -1589,9 +1542,6 @@ textarea:focus-visible {
 
 
 
-/* =========================================
-   SINGLE PAGE NAVIGATION
-========================================= */
 
 .page-view {
     display: block;
@@ -1616,7 +1566,6 @@ textarea:focus-visible {
     border-radius: 2px;
 }
 
-/* Smooth page transition */
 .page-view.active {
     animation: pageFadeIn 0.3s ease;
 }

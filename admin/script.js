@@ -1,45 +1,24 @@
 
-/* =========================================
-   CKMHTO.AI - ADMIN DASHBOARD
-   Live Database Integration
-========================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
-
-    // =====================================
-    // DOM ELEMENTS
-    // =====================================
-
     const totalBookingsEl = document.getElementById("totalBookings");
     const totalRevenueEl = document.getElementById("totalRevenue");
     const successfulPaymentsEl = document.getElementById("successfulPayments");
     const pendingPaymentsEl = document.getElementById("pendingPayments");
     const failedPaymentsEl = document.getElementById("failedPayments");
-
     const bookingsTableBody = document.getElementById("bookingsTableBody");
     const bookingCountEl = document.getElementById("bookingCount");
-
     const searchInput = document.getElementById("searchInput");
     const statusFilter = document.getElementById("statusFilter");
-
     const refreshButton = document.getElementById("refreshButton");
     const exportButton = document.getElementById("exportButton");
-
     const bookingModal = document.getElementById("bookingModal");
     const bookingDetails = document.getElementById("bookingDetails");
     const closeModal = document.getElementById("closeModal");
-
     const toastMessage = document.getElementById("toastMessage");
-
-
-    // =====================================
-    // AUTHENTICATION
-    // =====================================
 
     let adminCredentials = null;
 
     function getAuthorizationHeader() {
-
         if (!adminCredentials) {
             const username = window.prompt("Enter Admin Username:");
 
@@ -68,13 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-
-    // =====================================
-    // API REQUEST
-    // =====================================
-
     async function apiRequest(url, retry = true) {
-
         const response = await fetch(url, {
             method: "GET",
             headers: {
@@ -85,9 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (response.status === 401 && retry) {
-
             adminCredentials = null;
-
             return apiRequest(url, false);
         }
 
@@ -107,18 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return result;
     }
 
-
-    // =====================================
-    // TOAST MESSAGE
-    // =====================================
-
     let toastTimer;
 
     function showToast(message) {
-
         toastMessage.textContent = message;
         toastMessage.classList.remove("hidden");
-
         clearTimeout(toastTimer);
 
         toastTimer = setTimeout(() => {
@@ -126,13 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3500);
     }
 
-
-    // =====================================
-    // FORMAT HELPERS
-    // =====================================
-
     function formatCurrency(amount) {
-
         return new Intl.NumberFormat("en-IN", {
             style: "currency",
             currency: "INR",
@@ -140,9 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }).format((Number(amount) || 0) / 100);
     }
 
-
     function formatDate(dateValue) {
-
         if (!dateValue) return "—";
 
         const date = new Date(
@@ -157,9 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
     function escapeHTML(value) {
-
         return String(value ?? "").replace(/[&<>"']/g, character => ({
             "&": "&amp;",
             "<": "&lt;",
@@ -169,41 +123,19 @@ document.addEventListener("DOMContentLoaded", () => {
         })[character]);
     }
 
-
-    // =====================================
-    // DASHBOARD DATA
-    // =====================================
-
     let allBookings = [];
 
-
     async function loadStatistics() {
-
         const stats = await apiRequest("/api/admin/stats");
 
-        totalBookingsEl.textContent =
-            stats.total_bookings ?? 0;
-
-        totalRevenueEl.textContent =
-            formatCurrency(stats.total_revenue);
-
-        successfulPaymentsEl.textContent =
-            stats.successful_payments ?? 0;
-
-        pendingPaymentsEl.textContent =
-            stats.pending_payments ?? 0;
-
-        failedPaymentsEl.textContent =
-            stats.failed_payments ?? 0;
+        totalBookingsEl.textContent = stats.total_bookings ?? 0;
+        totalRevenueEl.textContent = formatCurrency(stats.total_revenue);
+        successfulPaymentsEl.textContent = stats.successful_payments ?? 0;
+        pendingPaymentsEl.textContent = stats.pending_payments ?? 0;
+        failedPaymentsEl.textContent = stats.failed_payments ?? 0;
     }
 
-
-    // =====================================
-    // LOAD BOOKINGS
-    // =====================================
-
     async function loadBookings() {
-
         bookingsTableBody.innerHTML = `
             <tr>
                 <td colspan="8" class="empty-state">
@@ -217,17 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         allBookings = result.bookings || [];
-
         renderBookings();
     }
 
-
-    // =====================================
-    // RENDER BOOKINGS TABLE
-    // =====================================
-
     function renderBookings() {
-
         const searchTerm = searchInput.value
             .trim()
             .toLowerCase();
@@ -235,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const selectedStatus = statusFilter.value;
 
         const filteredBookings = allBookings.filter(booking => {
-
             const searchableText = [
                 booking.id,
                 booking.name,
@@ -247,8 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 booking.razorpay_payment_id
             ].join(" ").toLowerCase();
 
-            const matchesSearch =
-                searchableText.includes(searchTerm);
+            const matchesSearch = searchableText.includes(searchTerm);
 
             const matchesStatus =
                 !selectedStatus ||
@@ -257,9 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return matchesSearch && matchesStatus;
         });
 
-
         if (filteredBookings.length === 0) {
-
             bookingsTableBody.innerHTML = `
                 <tr>
                     <td colspan="8" class="empty-state">
@@ -269,46 +190,35 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             bookingCountEl.textContent = "0 records found";
-
             return;
         }
 
-
         bookingsTableBody.innerHTML = filteredBookings.map(booking => {
-
             const status = ["paid", "pending", "failed"].includes(
                 booking.payment_status
             ) ? booking.payment_status : "pending";
 
             return `
                 <tr>
-
                     <td>
                         <strong>#${escapeHTML(booking.id)}</strong>
                     </td>
-
                     <td>
                         <strong>${escapeHTML(booking.name)}</strong>
                         <br>
                         <small>${escapeHTML(booking.email)}</small>
                     </td>
-
                     <td>${escapeHTML(booking.business)}</td>
-
                     <td>${escapeHTML(booking.service)}</td>
-
                     <td>
                         <strong>${formatCurrency(booking.amount)}</strong>
                     </td>
-
                     <td>
                         <span class="payment-badge ${status}">
                             ${status}
                         </span>
                     </td>
-
                     <td>${escapeHTML(formatDate(booking.created_at))}</td>
-
                     <td>
                         <button
                             class="view-button"
@@ -317,30 +227,19 @@ document.addEventListener("DOMContentLoaded", () => {
                             View Details
                         </button>
                     </td>
-
                 </tr>
             `;
-
         }).join("");
-
 
         bookingCountEl.textContent =
             `${filteredBookings.length} of ${allBookings.length} records`;
     }
 
-
-    // =====================================
-    // BOOKING DETAILS
-    // =====================================
-
     async function openBookingDetails(bookingId) {
-
         bookingModal.classList.remove("hidden");
-
         bookingDetails.textContent = "Loading booking details...";
 
         try {
-
             const result = await apiRequest(
                 `/api/admin/bookings/${bookingId}`
             );
@@ -348,7 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const booking = result.booking;
 
             const details = [
-
                 ["Booking ID", `#${booking.id}`],
                 ["Customer Name", booking.name],
                 ["Email", booking.email],
@@ -356,33 +254,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 ["Business", booking.business],
                 ["Service", booking.service],
                 ["Requirements", booking.requirements],
-
                 ["Booking Amount", formatCurrency(booking.amount)],
                 ["Currency", booking.currency],
                 ["Payment Status", booking.payment_status],
-
                 ["Razorpay Order ID", booking.razorpay_order_id],
                 ["Razorpay Payment ID", booking.razorpay_payment_id],
-
                 ["Payment Method", booking.payment_method],
                 ["Payment Email", booking.payment_email],
                 ["Payment Contact", booking.payment_contact],
                 ["Bank", booking.payment_bank],
                 ["Wallet", booking.payment_wallet],
                 ["UPI VPA", booking.payment_vpa],
-
                 ["Card Network", booking.card_network],
                 ["Card Last 4 Digits", booking.card_last4],
-
                 ["Failure Reason", booking.failure_reason],
                 ["Payment Date", formatDate(booking.paid_at)],
                 ["Booking Created", formatDate(booking.created_at)]
-
             ];
 
-
             bookingDetails.innerHTML = details.map(([label, value]) => {
-
                 const isLongText = [
                     "Requirements",
                     "Razorpay Order ID",
@@ -395,27 +285,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         <strong>${escapeHTML(value || "Not available")}</strong>
                     </div>
                 `;
-
             }).join("");
-
         } catch (error) {
-
             bookingDetails.textContent = error.message;
-
             showToast(error.message);
         }
     }
 
-
-    // =====================================
-    // CSV EXPORT
-    // =====================================
-
     function csvCell(value) {
-
         let text = String(value ?? "");
 
-        // Prevent spreadsheet formula injection.
         if (/^[\s]*[=+\-@]/.test(text)) {
             text = "'" + text;
         }
@@ -423,9 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return `"${text.replace(/"/g, '""')}"`;
     }
 
-
     function exportCSV() {
-
         if (allBookings.length === 0) {
             showToast("No booking records available.");
             return;
@@ -458,7 +335,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
         const rows = allBookings.map(booking => [
-
             booking.id,
             booking.name,
             booking.email,
@@ -482,7 +358,6 @@ document.addEventListener("DOMContentLoaded", () => {
             booking.failure_reason,
             booking.paid_at,
             booking.created_at
-
         ]);
 
         const csvContent = [
@@ -496,70 +371,45 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         const url = URL.createObjectURL(blob);
-
         const link = document.createElement("a");
 
         link.href = url;
         link.download = "ckmhto-bookings.csv";
 
         document.body.appendChild(link);
-
         link.click();
         link.remove();
 
         URL.revokeObjectURL(url);
-
         showToast("CSV exported successfully.");
     }
 
-
-    // =====================================
-    // REFRESH DASHBOARD
-    // =====================================
-
     async function refreshDashboard() {
-
         refreshButton.disabled = true;
         refreshButton.textContent = "Refreshing...";
 
         try {
-
             await Promise.all([
                 loadStatistics(),
                 loadBookings()
             ]);
 
             showToast("Dashboard updated successfully.");
-
         } catch (error) {
-
             console.error("Dashboard Error:", error);
-
             showToast(error.message);
-
         } finally {
-
             refreshButton.disabled = false;
             refreshButton.textContent = "↻ Refresh";
         }
     }
 
-
-    // =====================================
-    // EVENT LISTENERS
-    // =====================================
-
     searchInput.addEventListener("input", renderBookings);
-
     statusFilter.addEventListener("change", renderBookings);
-
     refreshButton.addEventListener("click", refreshDashboard);
-
     exportButton.addEventListener("click", exportCSV);
 
-
     bookingsTableBody.addEventListener("click", event => {
-
         const button = event.target.closest("[data-booking-id]");
 
         if (!button) return;
@@ -567,36 +417,24 @@ document.addEventListener("DOMContentLoaded", () => {
         openBookingDetails(button.dataset.bookingId);
     });
 
-
     closeModal.addEventListener("click", () => {
         bookingModal.classList.add("hidden");
     });
 
-
     bookingModal.addEventListener("click", event => {
-
         if (event.target === bookingModal) {
             bookingModal.classList.add("hidden");
         }
     });
 
-
     document.addEventListener("keydown", event => {
-
         if (event.key === "Escape") {
             bookingModal.classList.add("hidden");
         }
     });
 
-
-    // =====================================
-    // SIDEBAR NAVIGATION
-    // =====================================
-
     document.querySelectorAll(".nav-link").forEach(link => {
-
         link.addEventListener("click", () => {
-
             document.querySelectorAll(".nav-link").forEach(item => {
                 item.classList.remove("active");
             });
@@ -605,11 +443,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-
-    // =====================================
-    // INITIAL LOAD
-    // =====================================
-
     refreshDashboard();
-
 });

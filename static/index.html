@@ -4,169 +4,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CKMHTO.AI | AI Automation & Agent Solutions</title>
-
     <meta name="description"
         content="Transform your business with CKMHTO.AI. Explore AI chatbots, agents, voice automation and intelligent business solutions.">
-
     <meta name="theme-color" content="#080d1a">
-
     <link rel="icon" type="image/png" href="/static/logo.png">
     <link rel="stylesheet" href="/static/style.css">
-
-    <!-- Razorpay Checkout -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-    <!-- PDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-    <!-- Main JavaScript -->
     <script src="/static/script.js" defer></script>
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
     <header class="navbar">
         <div class="container nav-content">
-
             <a href="#home" class="brand" data-page-link="home">
                 <img src="/static/logo.png" alt="CKMHTO.AI Logo">
                 <span>CKMHTO<span class="brand-ai">.AI</span></span>
             </a>
-
             <nav class="nav-links">
                 <a href="#home" data-page-link="home" class="active">Home</a>
                 <a href="#services" data-page-link="services">Services</a>
                 <a href="#about" data-page-link="about">About</a>
                 <a href="#process" data-page-link="process">How It Works</a>
             </nav>
-
             <div class="nav-right">
                 <a href="#booking" class="nav-button" data-page-link="home" data-scroll-booking>
                     Get Started →
                 </a>
             </div>
-
         </div>
     </header>
-
-
     <main>
-
-        <!-- =====================================
-             HOME PAGE
-             HERO + BOOKING FORM
-        ====================================== -->
-
         <div class="page-view active" id="homePage" data-page="home">
-
-            <!-- HERO SECTION -->
             <section class="hero-section" id="home">
-
                 <div class="container hero-grid">
-
                     <div class="hero-content">
-
                         <div class="eyebrow">
                             <span class="status-dot"></span>
                             INTELLIGENT AI SOLUTIONS FOR BUSINESS
                         </div>
-
                         <h1>
                             Transform Your Business
                             <span>With Intelligent AI.</span>
                         </h1>
-
                         <p class="hero-description">
                             Automate repetitive tasks, improve customer experiences
                             and grow your business with custom AI agents and
                             intelligent automation solutions.
                         </p>
-
                         <div class="hero-actions">
-
                             <a href="#booking" class="primary-button" data-scroll-booking>
                                 Start Your Project →
                             </a>
-
                             <a href="#services" class="secondary-button" data-page-link="services">
                                 Explore Services
                             </a>
-
                         </div>
-
                         <div class="hero-trust">
                             <span>✓ Custom AI Solutions</span>
                             <span>✓ Business Automation</span>
                             <span>✓ Scalable Technology</span>
                         </div>
-
                     </div>
-
                     <div class="hero-visual">
-
                         <div class="ai-visual-card">
-
                             <div class="visual-top">
                                 <span class="visual-dot"></span>
                                 CKMHTO AI SYSTEM
                                 <span class="live-label">● ACTIVE</span>
                             </div>
-
                             <div class="ai-orb">
                                 <img src="/static/logo.png" alt="CKMHTO AI">
                             </div>
-
                             <h3>Intelligence That Works For You.</h3>
-
                             <p>
                                 AI Agents · Automation · Smart Workflows
                             </p>
-
                             <div class="visual-features">
                                 <div>✦ AI-Powered Solutions</div>
                                 <div>✦ Intelligent Automation</div>
                                 <div>✦ 24/7 Digital Assistance</div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
-
-
-            <!-- BOOKING SECTION -->
             <section class="booking-section section-padding" id="booking">
-
                 <div class="container booking-grid">
-
                     <div class="booking-info">
-
                         <span class="section-tag">LET'S BUILD SOMETHING SMART</span>
-
                         <h2>
                             Ready To Automate
                             <span>Your Business?</span>
                         </h2>
-
                         <p>
                             Tell us what you want to build. Our team will
                             review your requirements and help you explore
                             the right AI solution.
                         </p>
-
                         <div class="booking-points">
                             <div>✓ Personalized project discussion</div>
                             <div>✓ Solutions based on your requirements</div>
                             <div>✓ Transparent project scope</div>
                             <div>✓ Secure online booking</div>
                         </div>
-
                         <div class="price-card">
                             <p>Initial Booking Fee</p>
                             <h2>₹499</h2>
@@ -175,55 +117,39 @@
                                 Final project pricing will be discussed separately.
                             </small>
                         </div>
-
                     </div>
-
-
-                    <!-- BOOKING FORM -->
                     <div class="form-card">
-
                         <div class="form-heading">
                             <span class="form-tag">GET STARTED</span>
                             <h2>Book Your AI Solution</h2>
                             <p>Share your details and project requirements.</p>
                         </div>
-
                         <form id="bookingForm">
-
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
                                 <input type="text" id="name" name="name" placeholder="Enter your full name" required
                                     minlength="2" maxlength="100">
                             </div>
-
                             <div class="form-row">
-
                                 <div class="form-group">
                                     <label for="email">Email Address *</label>
                                     <input type="email" id="email" name="email" placeholder="you@example.com" required>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="phone">Phone Number *</label>
                                     <input type="tel" id="phone" name="phone" placeholder="Mobile number" required
                                         minlength="10" maxlength="15">
                                 </div>
-
                             </div>
-
                             <div class="form-group">
                                 <label for="business">Business / Company Name *</label>
                                 <input type="text" id="business" name="business" placeholder="Enter business name"
                                     required maxlength="150">
                             </div>
-
                             <div class="form-group">
                                 <label for="service">Which Service Do You Need? *</label>
-
                                 <select id="service" name="service" required>
-
                                     <option value="">Select your service</option>
-
                                     <optgroup label="AI Agents & Chatbots">
                                         <option value="AI Chatbot Development">AI Chatbot Development</option>
                                         <option value="RAG Knowledge Assistant">RAG-Based Knowledge Assistant</option>
@@ -231,7 +157,6 @@
                                         <option value="Multi-Agent Systems">Multi-Agent Systems</option>
                                         <option value="AI Customer Support">AI Customer Support Agent</option>
                                     </optgroup>
-
                                     <optgroup label="Business Automation">
                                         <option value="Business Workflow Automation">Business Workflow Automation
                                         </option>
@@ -240,7 +165,6 @@
                                         <option value="Document Processing">Document Processing Automation</option>
                                         <option value="Data Report Automation">Data Entry & Report Automation</option>
                                     </optgroup>
-
                                     <optgroup label="Communication AI">
                                         <option value="WhatsApp AI Agent">WhatsApp AI Agent</option>
                                         <option value="Voice AI Agent">Voice Calling AI Agent</option>
@@ -249,7 +173,6 @@
                                         <option value="Customer Query Assistant">Email & Customer Query Assistant
                                         </option>
                                     </optgroup>
-
                                     <optgroup label="Marketing & Sales AI">
                                         <option value="AI Lead Generation">AI Lead Generation Agent</option>
                                         <option value="AI Sales Assistant">AI Sales Assistant</option>
@@ -257,399 +180,266 @@
                                         <option value="AI Content Generation">AI Content Generation</option>
                                         <option value="Ecommerce AI Assistant">E-commerce AI Assistant</option>
                                     </optgroup>
-
                                     <option value="Other Custom Solution">Other / Custom AI Solution</option>
-
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label for="requirements">Project Requirements *</label>
                                 <textarea id="requirements" name="requirements" rows="4"
                                     placeholder="Describe your business, what you want to automate, and your expected outcome..."
                                     required minlength="10" maxlength="2000"></textarea>
                             </div>
-
                             <div class="payment-summary">
                                 <span>Booking Fee</span>
                                 <strong>₹499</strong>
                             </div>
-
                             <button type="submit" id="payButton" class="pay-button">
                                 Continue to Payment →
                             </button>
-
                             <p class="form-note">
                                 🔒 Secure payment powered by Razorpay.
                             </p>
-
                             <div id="statusMessage" class="status-message" role="status" aria-live="polite">
                             </div>
-
                         </form>
-
                     </div>
-
                 </div>
-
             </section>
-
         </div>
-
-
-        <!-- =====================================
-             SERVICES PAGE
-             HIDDEN INITIALLY
-        ====================================== -->
-
         <div class="page-view is-hidden" id="servicesPage" data-page="services">
-
             <section class="services-section section-padding" id="services">
-
                 <div class="container">
-
                     <div class="section-heading">
                         <span class="section-tag">OUR SERVICES</span>
-
                         <h2>
                             Intelligent Solutions For
                             <span>Modern Businesses.</span>
                         </h2>
-
                         <p>
                             From intelligent chatbots to complete business
                             automation, we build AI solutions that solve
                             real-world business problems.
                         </p>
                     </div>
-
-
-                    <!-- 01. AI AGENTS -->
                     <div class="service-category">
-
                         <h3>01. AI Agents & Chatbots</h3>
-
                         <div class="services-grid">
-
                             <article class="service-card">
                                 <div class="service-icon">🤖</div>
                                 <h4>AI Chatbot Development</h4>
                                 <p>Smart chatbots to answer customer questions and provide instant support.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">🧠</div>
                                 <h4>RAG Knowledge Assistant</h4>
                                 <p>AI assistants that understand your business documents and knowledge base.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">⚡</div>
                                 <h4>Custom AI Agents</h4>
                                 <p>Intelligent AI agents designed to handle your specific business tasks.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">🔗</div>
                                 <h4>Multi-Agent Systems</h4>
                                 <p>Multiple AI agents working together to complete complex workflows.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">💬</div>
                                 <h4>AI Customer Support</h4>
                                 <p>Automated customer support with intelligent responses and assistance.</p>
                             </article>
-
                         </div>
-
                     </div>
-
-
-                    <!-- 02. BUSINESS AUTOMATION -->
                     <div class="service-category">
-
                         <h3>02. Business Automation</h3>
-
                         <div class="services-grid">
-
                             <article class="service-card">
                                 <div class="service-icon">⚙️</div>
                                 <h4>Workflow Automation</h4>
                                 <p>Automate repetitive business processes and connect your applications.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">📊</div>
                                 <h4>CRM & Sales Automation</h4>
                                 <p>Manage leads, customer information and sales workflows automatically.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">📧</div>
                                 <h4>Email Automation</h4>
                                 <p>Automated email replies, follow-ups and business communication.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">📄</div>
                                 <h4>Document Processing</h4>
                                 <p>Extract, organize and process information from business documents.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">📈</div>
                                 <h4>Data & Report Automation</h4>
                                 <p>Automate data collection, analysis and business reporting.</p>
                             </article>
-
                         </div>
-
                     </div>
-
-
-                    <!-- 03. COMMUNICATION AI -->
                     <div class="service-category">
-
                         <h3>03. Communication AI</h3>
-
                         <div class="services-grid">
-
                             <article class="service-card">
                                 <div class="service-icon">📱</div>
                                 <h4>WhatsApp AI Agent</h4>
                                 <p>Automate WhatsApp conversations, customer queries and notifications.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">🎙️</div>
                                 <h4>Voice Calling AI Agent</h4>
                                 <p>AI-powered voice agents for automated inbound and outbound calls.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">📅</div>
                                 <h4>AI Appointment Booking</h4>
                                 <p>Automate appointment scheduling, reminders and confirmations.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">🏢</div>
                                 <h4>AI Receptionist</h4>
                                 <p>Virtual receptionists to manage customer enquiries and bookings.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">✉️</div>
                                 <h4>Customer Query Assistant</h4>
                                 <p>AI-powered assistance for handling customer emails and enquiries.</p>
                             </article>
-
                         </div>
-
                     </div>
-
-
-                    <!-- 04. MARKETING & SALES -->
                     <div class="service-category">
-
                         <h3>04. Marketing & Sales AI</h3>
-
                         <div class="services-grid">
-
                             <article class="service-card">
                                 <div class="service-icon">🎯</div>
                                 <h4>AI Lead Generation</h4>
                                 <p>Discover, qualify and organize potential business leads.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">💼</div>
                                 <h4>AI Sales Assistant</h4>
                                 <p>Help sales teams with customer queries, follow-ups and lead management.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">📲</div>
                                 <h4>Social Media Automation</h4>
                                 <p>Automate content scheduling and social media workflows.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">✍️</div>
                                 <h4>AI Content Generation</h4>
                                 <p>Generate marketing content, descriptions and business copy with AI.</p>
                             </article>
-
                             <article class="service-card">
                                 <div class="service-icon">🛒</div>
                                 <h4>E-commerce AI Assistant</h4>
                                 <p>AI shopping assistants for product discovery and customer support.</p>
                             </article>
-
                         </div>
-
                     </div>
-
-
                     <div class="services-bottom">
                         <p>Need something different?</p>
                         <a href="#booking" data-page-link="home" data-scroll-booking>
                             Discuss Your Custom AI Solution →
                         </a>
                     </div>
-
                 </div>
-
             </section>
-
         </div>
-
-
-        <!-- =====================================
-             ABOUT PAGE
-             HIDDEN INITIALLY
-        ====================================== -->
-
         <div class="page-view is-hidden" id="aboutPage" data-page="about">
-
             <section class="about-section section-padding" id="about">
-
                 <div class="container">
-
                     <div class="section-heading">
                         <span class="section-tag">WHY CKMHTO.AI</span>
-
                         <h2>
                             Technology That
                             <span>Works For Your Business.</span>
                         </h2>
-
                         <p>
                             We focus on building practical AI solutions
                             that help businesses work smarter.
                         </p>
                     </div>
-
                     <div class="benefits-grid">
-
                         <div class="benefit-card">
                             <span>⚡</span>
                             <h3>Save Time</h3>
                             <p>Reduce repetitive work through intelligent automation.</p>
                         </div>
-
                         <div class="benefit-card">
                             <span>🎯</span>
                             <h3>Custom Solutions</h3>
                             <p>AI systems designed around your business requirements.</p>
                         </div>
-
                         <div class="benefit-card">
                             <span>🔒</span>
                             <h3>Secure Approach</h3>
                             <p>We prioritize responsible data handling and secure integrations.</p>
                         </div>
-
                         <div class="benefit-card">
                             <span>📈</span>
                             <h3>Scalable Systems</h3>
                             <p>Solutions designed to grow alongside your business.</p>
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
-
         </div>
-
-
-        <!-- =====================================
-             HOW IT WORKS PAGE
-             HIDDEN INITIALLY
-        ====================================== -->
-
         <div class="page-view is-hidden" id="processPage" data-page="process">
-
             <section class="process-section section-padding" id="process">
-
                 <div class="container">
-
                     <div class="section-heading">
                         <span class="section-tag">SIMPLE PROCESS</span>
-
                         <h2>
                             From Idea To
                             <span>AI Solution.</span>
                         </h2>
-
                         <p>
                             Getting started with CKMHTO.AI is simple.
                         </p>
                     </div>
-
                     <div class="process-grid">
-
                         <div class="process-card">
                             <span class="process-number">01</span>
                             <h3>Share Your Idea</h3>
                             <p>Tell us about your business and automation requirements.</p>
                         </div>
-
                         <div class="process-card">
                             <span class="process-number">02</span>
                             <h3>Discuss & Plan</h3>
                             <p>We understand your needs and discuss the right solution.</p>
                         </div>
-
                         <div class="process-card">
                             <span class="process-number">03</span>
                             <h3>Build Your Solution</h3>
                             <p>We develop an AI solution based on the agreed scope.</p>
                         </div>
-
                         <div class="process-card">
                             <span class="process-number">04</span>
                             <h3>Launch & Support</h3>
                             <p>Deploy your solution and provide agreed support.</p>
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
-
         </div>
-
     </main>
-
-
-    <!-- =====================================
-         FOOTER
-         HIDDEN INITIALLY
-    ====================================== -->
-
     <footer class="footer is-hidden" id="siteFooter">
-
         <div class="container footer-content">
-
             <div class="footer-brand">
-
                 <div class="brand">
                     <img src="/static/logo.png" alt="CKMHTO.AI Logo">
                     <span>CKMHTO<span class="brand-ai">.AI</span></span>
                 </div>
-
                 <p>
                     Your Business. Powered by AI.
                     Building intelligent solutions for a smarter future.
                 </p>
-
             </div>
-
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <a href="#home" data-page-link="home">Home</a>
@@ -657,7 +447,6 @@
                 <a href="#about" data-page-link="about">About Us</a>
                 <a href="#booking" data-page-link="home" data-scroll-booking>Book a Service</a>
             </div>
-
             <div class="footer-links">
                 <h4>Our Solutions</h4>
                 <a href="#services" data-page-link="services">AI Agents</a>
@@ -665,16 +454,12 @@
                 <a href="#services" data-page-link="services">Voice AI</a>
                 <a href="#services" data-page-link="services">Marketing AI</a>
             </div>
-
         </div>
-
         <div class="container footer-bottom">
             <p>© 2026 CKMHTO.AI. All rights reserved.</p>
             <p>Designed for smarter businesses. ✦</p>
         </div>
-
     </footer>
-
 </body>
 
 </html>

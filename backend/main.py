@@ -28,22 +28,12 @@ from payment import (
     fetch_payment
 )
 
-
-# =========================================
-# PATH CONFIGURATION
-# =========================================
-
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BASE_DIR.parent
 
 STATIC_DIR = PROJECT_DIR / "static"
 ADMIN_DIR = PROJECT_DIR / "admin"
 load_dotenv(BASE_DIR / ".env", override=True)
-
-
-# =========================================
-# FASTAPI APPLICATION
-# =========================================
 
 app = FastAPI(
     title="CKMHTO AI Agent Booking",
@@ -53,15 +43,9 @@ app = FastAPI(
 
 security = HTTPBasic()
 
-
-# =========================================
-# ADMIN AUTHENTICATION
-# =========================================
-
 def verify_admin(
     credentials: HTTPBasicCredentials = Depends(security)
 ):
-
     admin_username = os.getenv("ADMIN_USERNAME")
     admin_password = os.getenv("ADMIN_PASSWORD")
 
@@ -90,11 +74,6 @@ def verify_admin(
 
     return True
 
-
-# =========================================
-# STATIC FILES
-# =========================================
-
 app.mount(
     "/static",
     StaticFiles(directory=STATIC_DIR),
@@ -102,29 +81,17 @@ app.mount(
 )
 
 if ADMIN_DIR.exists():
-
     app.mount(
         "/admin-assets",
         StaticFiles(directory=ADMIN_DIR),
         name="admin-assets"
     )
 
-
-# =========================================
-# DATABASE INITIALIZATION
-# =========================================
-
 @app.on_event("startup")
 def startup_event():
     init_db()
 
-
-# =========================================
-# REQUEST MODELS
-# =========================================
-
 class BookingRequest(BaseModel):
-
     name: str = Field(min_length=2, max_length=100)
     email: EmailStr
     phone: str = Field(min_length=10, max_length=15)
@@ -132,31 +99,18 @@ class BookingRequest(BaseModel):
     service: str = Field(min_length=2, max_length=100)
     requirements: str = Field(min_length=10, max_length=2000)
 
-
 class PaymentVerification(BaseModel):
-
     booking_id: int
     razorpay_order_id: str
     razorpay_payment_id: str
     razorpay_signature: str
 
-
-# =========================================
-# HOME PAGE
-# =========================================
-
 @app.get("/")
 def home():
     return FileResponse(STATIC_DIR / "index.html")
 
-
-# =========================================
-# ADMIN PAGE
-# =========================================
-
 @app.get("/admin")
 def admin_page():
-
     if not (ADMIN_DIR / "index.html").exists():
         raise HTTPException(
             status_code=404,
@@ -165,38 +119,20 @@ def admin_page():
 
     return FileResponse(ADMIN_DIR / "index.html")
 
-
-# =========================================
-# HEALTH CHECK
-# =========================================
-
 @app.get("/api/health")
 def health_check():
-
     return {
         "status": "success",
         "message": "CKMHTO AI Agent Booking API is running"
     }
 
-
-# =========================================
-# PAYMENT CONFIGURATION
-# =========================================
-
 @app.get("/api/config")
 def payment_config():
     return get_public_config()
 
-
-# =========================================
-# CREATE BOOKING AND PAYMENT ORDER
-# =========================================
-
 @app.post("/api/create-order")
 def create_order(data: BookingRequest):
-
     try:
-
         order = create_payment_order()
 
         booking_id = create_booking(
@@ -214,7 +150,6 @@ def create_order(data: BookingRequest):
         }
 
     except Exception as error:
-
         print("Booking Error:", error)
 
         raise HTTPException(
@@ -222,14 +157,8 @@ def create_order(data: BookingRequest):
             detail="Unable to create booking. Please try again."
         )
 
-
-# =========================================
-# VERIFY PAYMENT
-# =========================================
-
 @app.post("/api/verify-payment")
 def verify_payment(data: PaymentVerification):
-
     booking = get_booking_by_id(data.booking_id)
 
     if not booking:
@@ -244,7 +173,6 @@ def verify_payment(data: PaymentVerification):
             detail="Invalid Razorpay order ID."
         )
 
-    # Verify Razorpay signature
     valid_signature = verify_payment_signature(
         order_id=data.razorpay_order_id,
         payment_id=data.razorpay_payment_id,
@@ -261,7 +189,6 @@ def verify_payment(data: PaymentVerification):
         payment = fetch_payment(data.razorpay_payment_id)
 
     except Exception as error:
-
         print("Razorpay Fetch Error:", error)
 
         raise HTTPException(
@@ -269,7 +196,6 @@ def verify_payment(data: PaymentVerification):
             detail="Unable to confirm payment with Razorpay."
         )
 
-    # Confirm actual captured payment
     if (
         payment.get("order_id") != data.razorpay_order_id
         or payment.get("amount") != booking["amount"]
@@ -281,7 +207,6 @@ def verify_payment(data: PaymentVerification):
             detail="Payment details do not match the booking."
         )
 
-    # Prevent duplicate payment ID reuse
     existing_payment = get_booking_by_payment_id(
         data.razorpay_payment_id
     )
@@ -292,9 +217,7 @@ def verify_payment(data: PaymentVerification):
             detail="Payment ID is already linked to another booking."
         )
 
-    # Prevent overwriting a different successful payment
     if booking["payment_status"] == "paid":
-
         if booking["razorpay_payment_id"] == data.razorpay_payment_id:
             return {
                 "success": True,
@@ -339,22 +262,11 @@ def verify_payment(data: PaymentVerification):
         "booking_id": data.booking_id
     }
 
-
-# =========================================
-# ADMIN: DASHBOARD STATISTICS
-# =========================================
-
 @app.get("/api/admin/stats")
 def admin_stats(
     authenticated: bool = Depends(verify_admin)
 ):
-
     return get_booking_statistics()
-
-
-# =========================================
-# ADMIN: ALL BOOKINGS
-# =========================================
 
 @app.get("/api/admin/bookings")
 def admin_bookings(
@@ -363,7 +275,6 @@ def admin_bookings(
     offset: int = Query(default=0, ge=0),
     authenticated: bool = Depends(verify_admin)
 ):
-
     allowed_statuses = {
         "paid",
         "pending",
@@ -388,17 +299,11 @@ def admin_bookings(
         "bookings": bookings
     }
 
-
-# =========================================
-# ADMIN: SINGLE BOOKING DETAILS
-# =========================================
-
 @app.get("/api/admin/bookings/{booking_id}")
 def admin_booking_details(
     booking_id: int,
     authenticated: bool = Depends(verify_admin)
 ):
-
     booking = get_booking_by_id(booking_id)
 
     if not booking:

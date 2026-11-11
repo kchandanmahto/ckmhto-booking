@@ -1,15 +1,5 @@
 
-/* =========================================
-   CKMHTO.AI - AI AGENT BOOKING
-   Navigation + Razorpay + Verified Receipt + PDF
-========================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
-
-    /* =====================================
-       1. ELEMENTS & CONFIGURATION
-    ===================================== */
-
     const bookingForm = document.getElementById("bookingForm");
     const payButton = document.getElementById("payButton");
     const statusMessage = document.getElementById("statusMessage");
@@ -21,33 +11,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("CKMHTO.AI System Initialized.");
 
-
-    /* =====================================
-       2. PAGE NAVIGATION
-    ===================================== */
-
     function showPage(pageName, scrollTarget = null) {
-
         const pages = document.querySelectorAll(".page-view");
         const navLinks = document.querySelectorAll("[data-page-link]");
 
-        let pageExists = false;
+        const activePage = Array.from(pages).find(
+            page => page.dataset.page === pageName
+        );
 
-        pages.forEach(page => {
-            const isActive = page.dataset.page === pageName;
-
-            page.classList.toggle("active", isActive);
-            page.classList.toggle("is-hidden", !isActive);
-
-            if (isActive) pageExists = true;
-        });
-
-        if (!pageExists) {
+        if (!activePage) {
             console.error("Page not found:", pageName);
             return;
         }
 
-        // Update active navbar link
+        pages.forEach(page => {
+            const isActive = page === activePage;
+
+            page.classList.toggle("active", isActive);
+            page.classList.toggle("is-hidden", !isActive);
+        });
+
         navLinks.forEach(link => {
             const isActive = link.dataset.pageLink === pageName;
 
@@ -62,17 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Footer hidden on Home, visible on other pages
         if (siteFooter) {
-            siteFooter.classList.toggle(
-                "is-hidden",
-                pageName === "home"
-            );
+            siteFooter.classList.toggle("is-hidden", pageName === "home");
         }
 
-        // Scroll to requested section or page top
         requestAnimationFrame(() => {
-
             if (scrollTarget) {
                 const target = document.getElementById(scrollTarget);
 
@@ -89,51 +66,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 top: 0,
                 behavior: "smooth"
             });
-
         });
     }
 
-
-    // Handle navbar and internal navigation links
     document.querySelectorAll("[data-page-link]").forEach(link => {
-
         link.addEventListener("click", event => {
-
             event.preventDefault();
 
             const pageName = link.dataset.pageLink;
 
-            // Links that should open Home and scroll to booking
             if (link.hasAttribute("data-scroll-booking")) {
                 showPage("home", "booking");
                 return;
             }
 
-            // Switch page
             showPage(pageName);
-
         });
-
     });
 
-
-    // Ensure correct initial page visibility
     showPage("home");
-
-
-    /* =====================================
-       3. FORM ELEMENT CHECK
-    ===================================== */
 
     if (!bookingForm || !payButton || !statusMessage) {
         console.error("Booking form elements not found.");
         return;
     }
-
-
-    /* =====================================
-       4. HELPERS
-    ===================================== */
 
     function escapeHTML(value) {
         return String(value ?? "").replace(/[&<>"']/g, char => ({
@@ -145,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })[char]);
     }
 
-
     function formatDate(date) {
         return date.toLocaleString("en-IN", {
             dateStyle: "medium",
@@ -153,9 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
     function showStatus(message, type = "info") {
-
         statusMessage.textContent = message;
 
         statusMessage.style.color =
@@ -164,23 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     "#a1aec2";
     }
 
-
     function setLoading(isLoading, text = "Continue to Payment →") {
-
         payButton.disabled = isLoading;
-
-        payButton.textContent = isLoading
-            ? "Please wait..."
-            : text;
+        payButton.textContent = isLoading ? "Please wait..." : text;
     }
 
-
-    /* =====================================
-       5. COLLECT FORM DATA
-    ===================================== */
-
     function getBookingData() {
-
         return {
             name: document.getElementById("name").value.trim(),
             email: document.getElementById("email").value.trim(),
@@ -189,34 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
             service: document.getElementById("service").value,
             requirements: document.getElementById("requirements").value.trim()
         };
-
     }
 
-
-    /* =====================================
-       6. API REQUEST HELPER
-    ===================================== */
-
     async function apiRequest(url, options = {}) {
-
         let response;
 
         try {
-
             response = await fetch(`${API_BASE_URL}${url}`, options);
-
         } catch (error) {
-
             throw new Error(
                 "Cannot connect to the server. Check your connection."
             );
-
         }
 
         const result = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-
             const detail = result.detail || result.message;
 
             throw new Error(
@@ -224,20 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     ? detail
                     : `Server request failed (${response.status}).`
             );
-
         }
 
         return result;
-
     }
 
-
-    /* =====================================
-       7. PAYMENT API FUNCTIONS
-    ===================================== */
-
     async function createOrder(bookingData) {
-
         return apiRequest("/api/create-order", {
             method: "POST",
             headers: {
@@ -245,19 +167,13 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify(bookingData)
         });
-
     }
-
 
     async function getPaymentConfig() {
-
         return apiRequest("/api/config");
-
     }
 
-
     async function verifyPayment(paymentData) {
-
         return apiRequest("/api/verify-payment", {
             method: "POST",
             headers: {
@@ -265,16 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify(paymentData)
         });
-
     }
 
-
-    /* =====================================
-       8. RECEIPT HTML
-    ===================================== */
-
     function buildReceiptHTML(receipt) {
-
         const amount = Number(receipt.amount).toLocaleString("en-IN", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -282,7 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return `
             <div class="pdf-receipt">
-
                 <div class="pdf-receipt-header">
                     <h2>CKMHTO<span>.AI</span></h2>
                     <p>Your Business. Powered by AI.</p>
@@ -300,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="pdf-receipt-details">
-
                     <div>
                         <span>Booking ID</span>
                         <strong>#${escapeHTML(receipt.bookingId)}</strong>
@@ -340,7 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span>Confirmation Date</span>
                         <strong>${escapeHTML(receipt.date)}</strong>
                     </div>
-
                 </div>
 
                 <div class="pdf-receipt-footer">
@@ -351,19 +257,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         Final project pricing is separate.
                     </small>
                 </div>
-
             </div>
         `;
-
     }
 
-
-    /* =====================================
-       9. DOWNLOAD PDF
-    ===================================== */
-
     async function downloadReceiptPDF() {
-
         if (!currentReceipt) {
             alert("Receipt is not available.");
             return;
@@ -382,15 +280,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const wrapper = document.createElement("div");
-
         wrapper.className = "receipt-export-wrapper";
         wrapper.innerHTML = buildReceiptHTML(currentReceipt);
 
         document.body.appendChild(wrapper);
 
         try {
-
-            // Wait for receipt rendering
             await new Promise(resolve => {
                 requestAnimationFrame(() => {
                     requestAnimationFrame(resolve);
@@ -405,14 +300,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const options = {
                 margin: 10,
-
                 filename: `CKMHTO-Receipt-${currentReceipt.bookingId}.pdf`,
-
                 image: {
                     type: "jpeg",
                     quality: 0.98
                 },
-
                 html2canvas: {
                     scale: 2,
                     useCORS: true,
@@ -421,13 +313,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     scrollX: 0,
                     scrollY: 0
                 },
-
                 jsPDF: {
                     unit: "mm",
                     format: "a4",
                     orientation: "portrait"
                 },
-
                 pagebreak: {
                     mode: ["avoid-all", "css", "legacy"]
                 }
@@ -439,31 +329,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 .save();
 
         } catch (error) {
-
             console.error("PDF generation failed:", error);
-
             alert("Could not generate PDF. Please try again.");
 
         } finally {
-
             wrapper.remove();
 
             if (button) {
                 button.disabled = false;
                 button.textContent = "↓ Download Receipt (PDF)";
             }
-
         }
-
     }
 
-
-    /* =====================================
-       10. PRINT RECEIPT
-    ===================================== */
-
     function printReceipt() {
-
         if (!currentReceipt) return;
 
         const printWindow = window.open("", "_blank");
@@ -478,13 +357,10 @@ document.addEventListener("DOMContentLoaded", () => {
         printWindow.document.write(`
             <!DOCTYPE html>
             <html lang="en">
-
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
                 <title>CKMHTO.AI Payment Receipt</title>
-
                 <link rel="stylesheet" href="/static/style.css">
 
                 <style>
@@ -505,15 +381,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         margin: 12mm;
                     }
                 </style>
-
             </head>
-
             <body>
-
                 <div class="receipt-export-wrapper">
                     ${buildReceiptHTML(currentReceipt)}
                 </div>
-
             </body>
             </html>
         `);
@@ -524,16 +396,9 @@ document.addEventListener("DOMContentLoaded", () => {
             printWindow.focus();
             printWindow.print();
         };
-
     }
 
-
-    /* =====================================
-       11. SUCCESS SCREEN
-    ===================================== */
-
     function showSuccess(receipt) {
-
         const formCard = document.querySelector(".form-card");
 
         if (!formCard) return;
@@ -541,9 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentReceipt = receipt;
 
         formCard.innerHTML = `
-
             <div class="success-screen">
-
                 <div class="success-icon-wrapper">
                     <div class="success-icon">✓</div>
                 </div>
@@ -568,7 +431,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="receipt-card">
-
                     <div class="receipt-heading">
                         <strong>Payment Receipt</strong>
                         <span class="verified-badge">✓ Verified</span>
@@ -602,11 +464,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span>Confirmation Date</span>
                         <strong>${escapeHTML(receipt.date)}</strong>
                     </div>
-
                 </div>
 
                 <div class="receipt-actions">
-
                     <button type="button" id="downloadReceiptBtn">
                         ↓ Download Receipt (PDF)
                     </button>
@@ -614,22 +474,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     <button type="button" id="printReceiptBtn">
                         Print Receipt
                     </button>
-
                 </div>
 
                 <div class="next-steps">
-
                     <div class="next-steps-icon">✉</div>
 
                     <div>
                         <strong>What's Next?</strong>
-
                         <p>
                             Our team will review your requirements
                             and contact you regarding the next steps.
                         </p>
                     </div>
-
                 </div>
 
                 <p class="success-footer">
@@ -642,34 +498,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     id="backHomeButton">
                     Back to Home →
                 </button>
-
             </div>
-
         `;
 
-        // PDF button
         document.getElementById("downloadReceiptBtn")
             .addEventListener("click", downloadReceiptPDF);
 
-        // Print button
         document.getElementById("printReceiptBtn")
             .addEventListener("click", printReceipt);
 
-        // Return to Home without reloading
         document.getElementById("backHomeButton")
             .addEventListener("click", () => {
                 showPage("home", "booking");
             });
-
     }
 
-
-    /* =====================================
-       12. OPEN RAZORPAY CHECKOUT
-    ===================================== */
-
     async function openRazorpayCheckout(bookingData) {
-
         if (typeof window.Razorpay === "undefined") {
             throw new Error(
                 "Razorpay Checkout could not load. Check your internet."
@@ -688,17 +532,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const options = {
-
             key: config.key_id,
-
             amount: order.amount,
-
             currency: order.currency || "INR",
-
             name: "CKMHTO.AI",
-
             description: "AI Agent Booking Fee",
-
             order_id: order.order_id,
 
             prefill: {
@@ -712,24 +550,17 @@ document.addEventListener("DOMContentLoaded", () => {
             },
 
             handler: async function (response) {
-
                 try {
-
                     showStatus(
                         "Payment received. Verifying...",
                         "info"
                     );
 
                     const verification = await verifyPayment({
-
                         booking_id: order.booking_id,
-
                         razorpay_order_id: response.razorpay_order_id,
-
                         razorpay_payment_id: response.razorpay_payment_id,
-
                         razorpay_signature: response.razorpay_signature
-
                     });
 
                     if (verification.success !== true) {
@@ -743,95 +574,65 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     const receipt = {
-
                         bookingId: order.booking_id,
-
                         paymentId: response.razorpay_payment_id,
-
                         orderId: response.razorpay_order_id,
-
                         amount: Number(order.amount) / 100,
-
                         name: bookingData.name,
-
                         email: bookingData.email,
-
                         service: bookingData.service,
-
                         date: formatDate(new Date())
-
                     };
 
                     showSuccess(receipt);
 
                 } catch (error) {
-
                     console.error("Verification Error:", error);
 
                     showStatus(
-                        `${error.message} Payment ID: ${response.razorpay_payment_id || "Unavailable"
-                        }`,
+                        `${error.message} Payment ID: ${response.razorpay_payment_id || "Unavailable"}`,
                         "error"
                     );
 
                     setLoading(false, "Try Again");
-
                 }
-
             },
 
             modal: {
-
                 ondismiss: function () {
-
                     showStatus(
                         "Payment cancelled. Your booking is not confirmed.",
                         "error"
                     );
 
                     setLoading(false);
-
                 }
-
             }
-
         };
 
         const razorpay = new window.Razorpay(options);
 
         razorpay.on("payment.failed", function (response) {
-
             const message =
                 response.error?.description ||
                 "Payment failed. Please try again.";
 
             showStatus(message, "error");
-
             setLoading(false, "Try Payment Again");
-
         });
 
         razorpay.open();
-
     }
 
-
-    /* =====================================
-       13. FORM SUBMISSION
-    ===================================== */
-
     bookingForm.addEventListener("submit", async function (event) {
-
         event.preventDefault();
 
         if (payButton.disabled) return;
-
         if (!bookingForm.reportValidity()) return;
 
         const bookingData = getBookingData();
 
         try {
-
             setLoading(true);
 
             showStatus(
@@ -842,7 +643,6 @@ document.addEventListener("DOMContentLoaded", () => {
             await openRazorpayCheckout(bookingData);
 
         } catch (error) {
-
             console.error("Booking Error:", error);
 
             showStatus(
@@ -851,9 +651,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             setLoading(false);
-
         }
-
     });
-
 });
